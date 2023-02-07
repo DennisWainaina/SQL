@@ -1,0 +1,65 @@
+
+Total number of goals in all games from winning teams:		Total number of goals in all games from winning teams:
+68								68
+
+Total number of goals in all games from both teams combined:	Total number of goals in all games from both teams combined:
+90								90
+
+Average number of goals in all games from the winning teams:	Average number of goals in all games from the winning teams:
+2.1250000000000000						2.1250000000000000
+
+Average number of goals in all games from the winning teams r	Average number of goals in all games from the winning teams r
+2.13								2.13
+
+Average number of goals in all games from both teams:		Average number of goals in all games from both teams:
+2.8125000000000000						2.8125000000000000
+
+Most goals scored in a single game by one team:			Most goals scored in a single game by one team:
+7								7
+
+Number of games where the winning team scored more than two g	Number of games where the winning team scored more than two g
+6								6
+
+Winner of the 2018 tournament team name:			Winner of the 2018 tournament team name:
+France								France
+
+List of teams who played in the 2014 'Eighth-Final' round:	List of teams who played in the 2014 'Eighth-Final' round:
+Algeria								Algeria
+Argentina							Argentina
+Belgium								Belgium
+Brazil								Brazil
+Chile								Chile
+Colombia							Colombia
+Costa Rica							Costa Rica
+France								France
+Germany								Germany
+Greece								Greece
+Mexico								Mexico
+Netherlands							Netherlands
+Nigeria								Nigeria
+Switzerland							Switzerland
+United States							United States
+Uruguay								Uruguay
+
+List of unique winning team names in the whole data set:	List of unique winning team names in the whole data set:
+Argentina							Argentina
+Belgium								Belgium
+Brazil								Brazil
+Colombia							Colombia
+Costa Rica							Costa Rica
+Croatia								Croatia
+England								England
+France								France
+Germany								Germany
+Netherlands							Netherlands
+Russia								Russia
+Sweden								Sweden
+Uruguay								Uruguay
+
+Year and team name of all the champions:			Year and team name of all the champions:
+2014|Germany							2014|Germany
+2018|France							2018|France
+
+List of teams that start with 'Co':				List of teams that start with 'Co':
+Colombia							Colombia
+Costa Rica							Costa Rica
