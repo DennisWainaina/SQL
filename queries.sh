@@ -1,6 +1,11 @@
 #! /bin/bash
 
-PSQL="psql --username=freecodecamp --dbname=worldcup --no-align --tuples-only -c"
+if [[ $1 == "test" ]]
+then
+  PSQL="psql --username=postgres --dbname=worldcuptest -t --no-align -c"
+else
+  PSQL="psql --username=freecodecamp --dbname=worldcup -t --no-align -c"
+fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
 
@@ -36,7 +41,7 @@ echo -e "\nList of unique winning team names in the whole data set:"
 echo "$($PSQL "SELECT DISTINCT(name) FROM games INNER JOIN teams ON games.winner_id=teams.team_id WHERE teams.team_id=games.winner_id ORDER BY name")"
 
 echo -e "\nYear and team name of all the champions:"
-echo "$($PSQL "SELECT year, name FROM games INNER JOIN teams ON games.winner_id=teams.team_id WHERE round='Final' AND teams.team_id=games.winner_id ORDER BY year DESC")"
+echo "$($PSQL "SELECT year, name FROM games INNER JOIN teams ON games.winner_id=teams.team_id WHERE round='Final' AND teams.team_id=games.winner_id ORDER BY year")"
 
 echo -e "\nList of teams that start with 'Co':"
 echo "$($PSQL "SELECT name FROM games INNER JOIN teams ON games.winner_id=teams.team_id WHERE name LIKE 'Co%'")"
