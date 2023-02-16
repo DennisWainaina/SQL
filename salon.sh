@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 PSQL="psql -X --username=freecodecamp --dbname=salon --tuples-only -c"
 
@@ -24,10 +24,11 @@ MAIN_MENU(){
   
   case $SERVICE_ID_SELECTED in
   1) CUT_MENU ;;
-  2) COLOR_MENU ;;
-  3) PERM_MENU ;;
-  4) STYLE_MENU ;;
-  5) TRIM_MENU ;;
+  2) CUT_MENU ;;
+  3) CUT_MENU ;;
+  4) CUT_MENU ;;
+  5) CUT_MENU ;;
+  
   *) MAIN_MENU "I could not find that service. What would you like today?"
   esac
 }
@@ -43,191 +44,49 @@ then
 MAIN_MENU "PLEASE ENTER A VALID PHONE NUMBER (xxx-xxx-xxxx)"
 
 else
+CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE phone='$CUSTOMER_PHONE'")
 CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'")
-
 # if number is not in database
  if [[ -z $CHECKED_PHONE ]]
  then
- echo -e  "\nSorry I can't find your phone number what is your name? " 
+ echo -e  "\nSorry I can't find your phone number what is your name?" 
  read CUSTOMER_NAME
+ 
  INSERT_CUSTOMER_INFO=$($PSQL "INSERT INTO customers(phone, name) VALUES ('$CUSTOMER_PHONE', '$CUSTOMER_NAME')")
  echo $INSERT_CUSTOMER_INFO
-  echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CUSTOMER_NAME'\n"
+ echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CUSTOMER_NAME'"
  read SERVICE_TIME
- CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE phone='$CHECKED_PHONE'")
- INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED '$SERVICE_TIME'")
-  else
-  # if number is in database
-  if [[ ! -z $CHECKED_PHONE ]]
-  then
-  CHECKED_NAME=$($PSQL "SELECT name FROM customers WHERE phone='$CUSTOMER_PHONE'")
-  echo -e "\nHello '$CHECKED_NAME'\n"
-  echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CHECKED_NAME'\n"
-  read SERVICE_TIME
+ TIME_IN_DATABASE=$($PSQL "SELECT time FROM appointments WHERE time = '$SERVICE_TIME'")
+   if [[ -z $TIME_IN_DATABASE ]]
+   then  
+   INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")  
+   echo $INSERT_APPOINTMENT_TYPE
+   fi
   
-  INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_ITME')")
-  fi
 
- fi
-fi
-}
-
-COLOR_MENU(){
-echo -e "\nWhat's your phone number?"
-
-# Entering phone number
-read CUSTOMER_PHONE
-
-# if phone number not there
-if [[ -z $CUSTOMER_PHONE ]]
-then
-MAIN_MENU "PLEASE ENTER A VALID PHONE NUMBER (xxx-xxx-xxxx)"
-
-else
-CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'")
-
-# if number is not in database
- if [[ -z $CHECKED_PHONE ]]
- then
- echo -e  "\nSorry I can't find your phone number what is your name? " 
- read CUSTOMER_NAME
- INSERT_CUSTOMER_INFO=$($PSQL "INSERT INTO customers(phone, name) VALUES ('$CUSTOMER_PHONE', '$CUSTOMER_NAME')")
- echo $INSERT_CUSTOMER_INFO
- echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT,$CUSTOMER_NAME\n"
- read SERVICE_TIME
- CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE phone='$CUSTOMER_PHONE'")
- INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID, '$SERVICE_TIME'")
- echo $INSERT_APPOINTMENT_TIME
-
-  else
+  else 
   # if number is in database
   if [[ ! -z $CHECKED_PHONE ]]
   then
   CHECKED_NAME=$($PSQL "SELECT name FROM customers WHERE phone='$CUSTOMER_PHONE'")
   echo -e "\nHello '$CHECKED_NAME'\n"
-  echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CHECKED_NAME'\n"
+  echo -e  "\nWhat time would you like your$SERVICE_NAME_TO_SELECT, '$CHECKED_NAME'"
   read SERVICE_TIME
-  
-  INSERTED_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES ($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
-  echo $INSERTED_APPOINTMENT_TIME
-  fi
-
- fi
-fi
-}
-PERM_MENU(){
-echo -e "\nWhat's your phone number?"
-
-# Entering phone number
-read CUSTOMER_PHONE
-
-# if phone number not there
-if [[ -z $CUSTOMER_PHONE ]]
-then
-MAIN_MENU "PLEASE ENTER A VALID PHONE NUMBER (xxx-xxx-xxxx)"
-
-else
-CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'")
-
-# if number is not in database
- if [[ -z $CHECKED_PHONE ]]
- then
- echo -e  "\nSorry I can't find your phone number what is your name? " 
- read CUSTOMER_NAME
- INSERT_CUSTOMER_INFO=$($PSQL "INSERT INTO customers(phone, name) VALUES ('$CUSTOMER_PHONE', '$CUSTOMER_NAME')")
- echo $INSERT_CUSTOMER_INFO
- echo "\nWhat time would you like your $SERVICE_ID_SELECTED, '$CUSTOMER_NAME'\n"
-
-  else
-  # if number is in database
-  if [[ ! -z $CHECKED_PHONE ]]
-  then
-  CHECKED_NAME=$($PSQL "SELECT name FROM customers WHERE phone='$CUSTOMER_PHONE'")
-  echo -e "\nHello '$CHECKED_NAME'\n"
-  echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CHECKED_NAME'\n"
-  read SERVICE_TIME
-  CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE name='$CHECKED_NAME'")
-  INSERTED_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES ($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
-  fi
-
- fi
-fi
-}
-STYLE_MENU(){
-echo -e "\nWhat's your phone number?"
-
-# Entering phone number
-read CUSTOMER_PHONE
-
-# if phone number not there
-if [[ -z $CUSTOMER_PHONE ]]
-then
-MAIN_MENU "PLEASE ENTER A VALID PHONE NUMBER (xxx-xxx-xxxx)"
-
-else
-CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'")
-
-# if number is not in database
- if [[ -z $CHECKED_PHONE ]]
- then
- echo -e  "\nSorry I can't find your phone number what is your name? " 
- read CUSTOMER_NAME
- INSERT_CUSTOMER_INFO=$($PSQL "INSERT INTO customers(phone, name) VALUES ('$CUSTOMER_PHONE', '$CUSTOMER_NAME')")
- echo $INSERT_CUSTOMER_INFO
- echo "\nWhat time would you like your $SERVICE_ID_SELECTED, '$CUSTOMER_NAME'\n"
-
-  else
-  # if number is in database
-  if [[ ! -z $CHECKED_PHONE ]]
-  then
-  CHECKED_NAME=$($PSQL "SELECT name FROM customers WHERE phone='$CUSTOMER_PHONE'")
-  echo -e "\nHello '$CHECKED_NAME'\n"
-  echo -e "\nWhat time would you like your$SERVICE_NAME_TO_SELECT,'$CHECKED_NAME'\n"
-  read SERVICE_TIME
-  CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE name='$CHECKED_NAME'")
-  INSERTED_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES ($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
-  fi
-
- fi
-fi
-}
-TRIM_MENU(){
-echo -e "\nWhat's your phone number?"
-
-# Entering phone number
-read CUSTOMER_PHONE
-
-# if phone number not there
-if [[ -z $CUSTOMER_PHONE ]]
-then
-MAIN_MENU "PLEASE ENTER A VALID PHONE NUMBER (xxx-xxx-xxxx)"
-
-else
-CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'")
-
-# if number is not in database
- if [[ -z $CHECKED_PHONE ]]
- then
- echo -e  "\nSorry I can't find your phone number what is your name? " 
- read CUSTOMER_NAME
- INSERT_CUSTOMER_INFO=$($PSQL "INSERT INTO customers(phone, name) VALUES ('$CUSTOMER_PHONE', '$CUSTOMER_NAME')")
- echo $INSERT_CUSTOMER_INFO
- echo "\nWhat time would you like your $SERVICE_ID_SELECTED, '$CUSTOMER_NAME'\n"
-
-  else
-  # if number is in database
-  if [[ ! -z $CHECKED_PHONE ]]
-  then
-  CHECKED_NAME=$($PSQL "SELECT name FROM customers WHERE phone='$CUSTOMER_PHONE'")
-  echo -e "\nHello '$CHECKED_NAME'\n"
-  echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CHECKED_NAME'\n"
-  read SERVICE_TIME
-  CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE name='$CHECKED_NAME'")
-  INSERTED_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES ($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
+  TIME_IN_DATABASE=$($PSQL "SELECT time FROM appointments WHERE time = '$SERVICE_TIME'")
+   if [[ -z $TIME_IN_DATABASE ]]
+   then
+   INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
+   
+   fi
+   
   fi
 
  fi
 fi
 }
 
+
+EXIT(){
+  echo -e "\nThanks for stopping by\n"
+}
 MAIN_MENU
