@@ -54,13 +54,15 @@ CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'
  
  INSERT_CUSTOMER_INFO=$($PSQL "INSERT INTO customers(phone, name) VALUES ('$CUSTOMER_PHONE', '$CUSTOMER_NAME')")
  echo $INSERT_CUSTOMER_INFO
+ NEW_CUSTOMER_ID=$($PSQL "SELECT customer_id FROM customers WHERE name='$CUSTOMER_NAME'")
  echo -e "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, '$CUSTOMER_NAME'"
  read SERVICE_TIME
  TIME_IN_DATABASE=$($PSQL "SELECT time FROM appointments WHERE time = '$SERVICE_TIME'")
    if [[ -z $TIME_IN_DATABASE ]]
    then  
-   INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")  
+   INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($NEW_CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")  
    echo $INSERT_APPOINTMENT_TYPE
+   echo -e "\nI have put you down for a$SERVICE_NAME_TO_SELECT at $SERVICE_TIME, $CUSTOMER_NAME."
    fi
   
 
@@ -70,13 +72,13 @@ CHECKED_PHONE=$($PSQL "SELECT phone FROM customers WHERE phone='$CUSTOMER_PHONE'
   then
   CHECKED_NAME=$($PSQL "SELECT name FROM customers WHERE phone='$CUSTOMER_PHONE'")
   echo -e "\nHello '$CHECKED_NAME'\n"
-  echo -e  "\nWhat time would you like your$SERVICE_NAME_TO_SELECT, '$CHECKED_NAME'"
+  echo -e  "\nWhat time would you like your $SERVICE_NAME_TO_SELECT, $CHECKED_NAME?"
   read SERVICE_TIME
   TIME_IN_DATABASE=$($PSQL "SELECT time FROM appointments WHERE time = '$SERVICE_TIME'")
    if [[ -z $TIME_IN_DATABASE ]]
    then
    INSERT_APPOINTMENT_TIME=$($PSQL "INSERT INTO appointments(customer_id, service_id, time) VALUES($CUSTOMER_ID, $SERVICE_ID_SELECTED, '$SERVICE_TIME')")
-   
+   echo -e "\nI have put you down for a$SERVICE_NAME_TO_SELECT at $SERVICE_TIME, $CHECKED_NAME."
    fi
    
   fi
