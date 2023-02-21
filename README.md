@@ -5,3 +5,4 @@ SQL mini projects
 3. A database created from information about students and their courses from CSV files
 4. A database created about characters from Mario and their actions.
 5. A project to create a database about bikes to be rented and returned and a script that is used to rent and return a bike.
+6. A project to create an elements script that queries a database about relevant information about the 1st 10 elements of the periodic table.
