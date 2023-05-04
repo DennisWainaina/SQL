@@ -24,6 +24,7 @@ In this mini project, I created a script that queries a database for relevant in
 This project involved creating a number guessing game that stores the user's game statistics in a PostgreSQL database. It showcases my skills in database management and automation with Bash scripting.
 
 # Technical Skills
+
 1.Proficient in PostgreSQL for database design, management, and querying.
 
 2.Experienced in Bash scripting for automation and data processing.
@@ -32,10 +33,6 @@ This project involved creating a number guessing game that stores the user's gam
 
 4.Strong problem-solving skills and ability to write efficient and optimized SQL queries.
 
-
-
-# License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 <span style="font-size:24px;font-weight:bold;">**Thank you for visiting my GitHub repository. If you have any questions or comments, please don't hesitate to reach out to me.**</span>
 
