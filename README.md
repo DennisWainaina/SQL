@@ -25,13 +25,17 @@ This project involved creating a number guessing game that stores the user's gam
 
 # Technical Skills
 1.Proficient in PostgreSQL for database design, management, and querying.
-2.Experienced in Bash scripting for automation and data processing.
-3.Familiarity with data wrangling techniques, data normalization, and data analysis.
-4.Strong problem-solving skills and ability to write efficient and optimized SQL queries.
 
-Thank you for visiting my GitHub repository. If you have any questions or comments, please don't hesitate to reach out to me.
+2.Experienced in Bash scripting for automation and data processing.
+
+3.Familiarity with data wrangling techniques, data normalization, and data analysis.
+
+4.Strong problem-solving skills and ability to write efficient and optimized SQL queries.
 
 
 
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+<span style="font-size:24px;font-weight:bold;">**Thank you for visiting my GitHub repository. If you have any questions or comments, please don't hesitate to reach out to me.**</span>
+
